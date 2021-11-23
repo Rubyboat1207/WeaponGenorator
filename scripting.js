@@ -203,7 +203,7 @@ function randomWeapon()
             }
             else if(good_things.includes(attributes[i]))
             {
-                if(attributes[i] != "All Mini-Crits Become Full Crits")
+                if(attributes[i] != "All Mini-Crits Become Full Crits" ^ attributes[i] == "decreased falloff")
                 {
                     attributes[i] = "+ %" + ((getRandomInt(15 + (value * 2)) + 1) * 5) + " " + attributes[i]
                 }
@@ -231,7 +231,7 @@ function randomWeapon()
                 }
             }else if(bad_things.includes(attributes[i]))
             {
-                if(attributes[i] != "All Crits Become mini-crits")
+                if(attributes[i] != "All Crits Become mini-crits" ^ attributes[i] == "increased falloff")
                 {
                     attributes[i] = "+ %" + ((getRandomInt(15 - (value * 2)) + 1) * 5) + " " + attributes[i]
                 }
