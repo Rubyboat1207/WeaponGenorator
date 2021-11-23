@@ -1,0 +1,116 @@
+@font-face {
+    font-family: tf2;
+    src: url(TF2secondary.ttf);
+}
+@font-face {
+    font-family: tf2-name;
+    src: url(TF2build.ttf);
+}
+.weapon_background {
+    margin-left: auto;
+    margin-right: auto;
+    border-style: solid;
+    border-color: #24201B;
+    border-width: 2px;
+    background: linear-gradient(0deg, rgba(56,51,45,1) 0%, rgba(33,29,25,1) 100%);
+    width: 600px;
+    min-height: 500px;
+    border-radius: 20px;
+}
+.weapon_image {
+    position: relative;
+    top: 20px;
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    height: 300px;
+    background: #3C362F;
+}
+.options {
+    text-align: left;
+    position: relative;
+    top: 20px;
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    min-height: 200px;
+    background: #3C362F;
+}
+.center-button {
+    text-align: center;
+    padding-top: 20px;
+}
+.weapon-name {
+    line-height: 1;
+    text-align: center;
+    font-family: tf2-name;
+    font-size: 30px;
+    color: #F8D718;
+    margin-bottom: 5px;
+}
+pre {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+.level {
+    line-height: 1;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: tf2;
+    font-size: 24px;
+    color: #756B5E;
+}
+.positive {
+    line-height: 1;
+    text-align: center;
+    font-family: tf2;
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #99CCFF;
+}
+.negative {
+    line-height: 1;
+    text-align: center;
+    font-family: tf2;
+    font-size: 24px;
+
+    color: #FF4040;
+}
+.weapon-button {
+    text-align: center;
+    font-family: tf2;
+    border-radius: 4px;
+    background: linear-gradient(180deg, rgba(249,241,230,1) 1%, rgba(156,142,113,1) 4%, rgba(154,144,109,1) 97%, rgba(36,34,22,1) 100%);
+    font-size: 20px;
+    position: relative;
+    color: White;
+}
+.option-label {
+    line-height: 1;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    text-align: center;
+    font-family: tf2;
+    font-size: 24px;
+    color: #5d5346;
+}
+option {
+    text-align: left;
+    background-color: #26231E;
+    color: #756B5E;
+}
+.dropdown {
+    text-align: center;
+    margin-left: 50px;
+    font-family: tf2;
+    border-radius: 4px;
+    background: linear-gradient(180deg, rgba(249,241,230,1) 1%, rgba(156,142,113,1) 4%, rgba(154,144,109,1) 97%, rgba(36,34,22,1) 100%);
+    font-size: 20px;
+    position: relative;
+    color: white;
+}
+html {
+    background: #2A2725;
+}

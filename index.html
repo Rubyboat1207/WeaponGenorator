@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <script src="scripting.js"></script>
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <div class="weapon_background">
+            <div class="weapon_image">
+                
+            </div>
+            <div style="padding-top: 10px;">
+                <p class="weapon-name" id="weapon-name">Generate A New Weapon!</p>
+            </div>
+            <pre id="level" class="level">level 69 idea</pre>
+            <pre id="positive" class="positive">+50 Enjoyment<br>+2 funny reddit moments</pre>
+            <pre id="negative" class="negative">-1 year off current life span</pre>
+        </div>
+        <div class="options">
+            <br>
+            <br>
+            <br>
+            <label for="classes" class="option-label">Class:</label>
+            <br>
+            <select name="classes" id="classes" class="dropdown">
+                <option value="any" class="dropdown_background">Any</option>
+                <option value="scout">Scout</option>
+                <option value="soldier">Solder</option>
+                <option value="pyro">Pyro</option>
+                <option value="demoman">Demoman</option>
+                <option value="heavy">Heavy</option>
+                <option value="engineer">Engineer</option>
+                <option value="medic">Medic</option>
+                <option value="sniper">Sniper</option>
+                <option value="spy">Spy</option>
+            </select>
+            <br>
+            <label for="classes" class="option-label">Slot:</label>
+            <br>
+            <select name="slot" id="slot" class="dropdown">
+                <option value="any" class="dropdown_background">Any</option>
+                <option value="primary" class="dropdown_background">Primary</option>
+                <option value="secondary" class="dropdown_background">Secondary</option>
+                <option value="mele" class="dropdown_background">Mele</option>
+
+            </select>
+            <br>
+            <label for="op" class="option-label">How good:</label>
+            <br>
+            <select name="slot" id="op" class="dropdown">
+                <option value="3" class="dropdown_background">OVERPOWERED</option>
+                <option value="1" class="dropdown_background">Good</option>
+                <option value="0" class="dropdown_background" selected>Balanced</option>
+                <option value="-1" class="dropdown_background">Bad</option>
+                <option value="-3" class="dropdown_background">Waste of Backpack Space</option>
+            </select>
+            <div class="center-button">
+                <button class="weapon-button" onclick="randomWeapon()">Generate New Weaopn!</button>
+            </div>
+        </div>
+    </body>
+</html>
