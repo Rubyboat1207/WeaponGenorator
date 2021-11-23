@@ -4,7 +4,7 @@
 }
 @font-face {
     font-family: tf2-name;
-    src: url(TF2build.ttf);
+    src: url(tf2build.ttf);
 }
 .weapon_background {
     margin-left: auto;
