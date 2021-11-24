@@ -190,7 +190,7 @@ function GiveOnKill(val)
     killstat = onKillAddon[val]
    if(killstat != "Gibbs Player" && killstat != "Deals damage to anything connected by any kind of medi-beam")
    {
-        killstat += ((getRandomInt(6) + 1) * 5);
+        killstat += ((getRandomInt(3) + 1) * 5);
         if(killstat != "Creates Small Explosion that deals " && killstat != "Heals User by ")
         {
             killstat += " seconds"
@@ -289,7 +289,7 @@ function randomWeapon()
                 if(attributes[i] == "Max Health")
                 {
                     attributes[i] = "+ " + ((getRandomInt(12 + (value * 3)) + 1) * 5) + " " + attributes[i] + " " + percent_attribute_addons[getRandomInt(percent_attribute_addons.length)]
-                }else if(attributes[i] == "Firing Cone Size")
+                }else if(attributes[i] == "Random Bullet Spread")
                 {
                     attributes[i] = "- " + ((getRandomInt(12 + (value * 3)) + 1) * 5) + " " + attributes[i] + " " + percent_attribute_addons[getRandomInt(percent_attribute_addons.length)]
                 }
@@ -324,7 +324,7 @@ function randomWeapon()
                 if(attributes[i] == "Max Health")
                 {
                     attributes[i] = "- " + ((getRandomInt(12 - (value * 3)) + 1) * 5) + " " + attributes[i] + " " + percent_attribute_addons[getRandomInt(percent_attribute_addons.length)]
-                }else if(attributes[i] == "Firing Cone Size")
+                }else if(attributes[i] == "Random Bullet Spread")
                 {
                     attributes[i] = "+ " + ((getRandomInt(12 - (value * 3)) + 1) * 5) + " " + attributes[i] + " " + percent_attribute_addons[getRandomInt(percent_attribute_addons.length)]
                 }
@@ -353,3 +353,4 @@ function randomWeapon()
 
     //Thoughts of Rubyboat:
     //1:08 AM 11/23/21 - Wow I just got daja vu lol and also I should probably sleep
+    //5:00 PM 11/24/2021 - This is much harder than I thought it would be
