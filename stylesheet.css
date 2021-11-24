@@ -6,6 +6,14 @@
     font-family: tf2-name;
     src: url(tf2build.ttf);
 }
+h1 {
+    font-family: tf2-name;
+    color: #F8D718;
+}
+h2 {
+    font-family: tf2;
+    color: #99CCFF;
+}
 .weapon_background {
     margin-left: auto;
     margin-right: auto;

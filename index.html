@@ -6,7 +6,7 @@
     <body>
         <div class="weapon_background">
             <div class="weapon_image">
-                
+                <img src="rubyboat.png" alt="weapon image" style="margin: auto; display: block; width: 200px; padding-top: 30px;" id="image">
             </div>
             <div style="padding-top: 10px;">
                 <p class="weapon-name" id="weapon-name">Generate A New Weapon!</p>
@@ -17,9 +17,19 @@
         </div>
         <div class="options">
             <br>
-            <br>
+            <br>`
             <br>
             <label for="classes" class="option-label">Class:</label>
+            <!--
+                <label for="slot" class="option-label">Slot:</label>
+                <br>
+                <select name="slot" id="slot" class="dropdown">
+                <option value="any" class="dropdown_background">Any</option>
+                <option value="primary" class="dropdown_background">Primary</option>
+                <option value="secondary" class="dropdown_background">Secondary</option>
+                <option value="mele" class="dropdown_background">Mele</option>
+            </select>
+            -->
             <br>
             <select name="classes" id="classes" class="dropdown">
                 <option value="any" class="dropdown_background">Any</option>
@@ -34,15 +44,7 @@
                 <option value="spy">Spy</option>
             </select>
             <br>
-            <label for="classes" class="option-label">Slot:</label>
-            <br>
-            <select name="slot" id="slot" class="dropdown">
-                <option value="any" class="dropdown_background">Any</option>
-                <option value="primary" class="dropdown_background">Primary</option>
-                <option value="secondary" class="dropdown_background">Secondary</option>
-                <option value="mele" class="dropdown_background">Mele</option>
-
-            </select>
+            
             <br>
             <label for="op" class="option-label">How good:</label>
             <br>
@@ -57,5 +59,6 @@
                 <button class="weapon-button" onclick="randomWeapon()">Generate New Weaopn!</button>
             </div>
         </div>
+        <a href="credits.html" class="level">credits</a>
     </body>
 </html>
