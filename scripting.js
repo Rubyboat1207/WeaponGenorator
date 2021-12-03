@@ -235,7 +235,7 @@ function GenerateStat(isgood, weapontype)
             }
             else if(weapontype == "sniper rifle")
             {
-                attr_to_add = flame_thrower_addons[getRandomInt(flame_thrower_addons.length)]
+                attr_to_add = sniper_rifle_addons[getRandomInt(sniper_rifle_addons.length)]
             }else{
                 console.log("SHOULD HAVE ON KILL")
                 if(isgood)
@@ -502,7 +502,7 @@ function randomWeapon()
             {
                 attributes[i] += " on all weapons for " + ((getRandomInt(4 + (value))+ 1) * 2) + " seconds after eating"
             }else if(percent_attributes.includes(attributes[i])){
-                attributes[i] = "On Eaten: " + attributes[i] + " for " + (getRandomInt(7 + (value)) + 1) + " seconds after eating"
+                attributes[i] = "On Eaten:" + " 25% " + attributes[i] + " for " + (getRandomInt(7 + (value)) + 1) + " seconds after eating"
             }
             //application
             document.getElementById("positive").innerHTML += CutTextAtSpace(42, attributes[i]) + "<br>"
