@@ -6,7 +6,7 @@ const scout = ["scattergun", "pistol", "bat"]
 const soldier = ["rocket launcher", "shotgun", "banner", "pair of boots", "shovel"]
 const pyro = ["flamethrower", "shotgun", "flare gun", "fire axe"]
 const demoman = ["grenade launcher", "sticky bomb launcher", "sword", "bottle"]
-const heavy = ["minigun", "shotgun", "mele"]
+const heavy = ["minigun", "shotgun", "lunchbox item", "mele"]
 const engineer = ["shotgun", "pistol", "wrench"]
 const medic = ["needle gun", "crossbow", "mele"]
 const sniper = ["sniper rifle", "smg", "mele"]
@@ -23,14 +23,14 @@ const percent_attributes =
     "Weapon Switch Speed",
     "Mid Air Movement Control",
     "Clip Size",
-    "Ammo Pool"
+    "Ammo Pool",
+    "bullets per shot"
 ]
 const good_things = [
     "Bullet Damage Resistance",
     "Fire Damage Resistance",
     "Blast Damage Resistance",
     "Crit Damage Resistance",
-    "Mini-Crit Damage Resistance",
     "decreased falloff",
     "inverted falloff",
     "All Mini-Crits Become Full Crits",
@@ -39,10 +39,11 @@ const good_things = [
     "Weapon Has Infinite Ammo",
     "Deals Crits When Aimed At The Back",
     "Has a fixed Spread Pattern",
-    "On Damage Deals Knockback"
+    "Deals Knockback",
+    "Can Headshot",
+    "Fires Projectile on Right Click Costing Entire Clip"
 ]
 const onKillAddon = [
-    "Gibbs Player",
     "Creates Small Explosion that deals ",
     "Turns User Invisible for ",
     "Coats All Enimies within a 10m radius with jarate for ",
@@ -53,7 +54,7 @@ const onKillAddon = [
     "Gets 3 additional double jumps for ",
     "Becomes Mini Crit Boosted for ",
     "Deals damage to anything connected by any kind of medi-beam",
-    "Heals User by "
+    "Heals User by ",
 ]
 const bad_things = [
     "Bullet Damage Vurnuability",
@@ -63,7 +64,9 @@ const bad_things = [
     "Mini-crit Damage Vurnuability",
     "increased falloff",
     "All Crits Become mini-crits",
-    "No Random Critical Hits"
+    "No Random Critical Hits",
+    "No Random Critical Hits",
+    "No Random Critical Hits",
 ]
 const percent_attribute_addons =
 [
@@ -104,8 +107,15 @@ const sniper_rifle_addons = [
 const projectile_addons = [
     "Projectile Speed",
     "Projectile Gravity",
-    "Splash radius"
+    "Splash radius",
+    "Projectiles follow cursor for "
 ]
+const lunchbox_percent_attributes = [
+    "eating speed",
+    "health when thrown",
+    "health when eaten"
+]
+
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -125,6 +135,47 @@ function meleCheck(attr_to_add, weapontype)
     }
     return attr_to_add
 }
+
+
+
+
+var isconstantweapon = false;
+var constweapon
+function AlwaysThisWeapon(weapontype)
+{
+    isconstantweapon = true;
+    constweapon = weapontype;
+}
+
+function CutTextAtSpace(position, text)
+{
+    if(text.length <= position)
+    {
+        return text;
+    }
+    var negspace;
+    var posspace;
+    for(let i = position; i >= 0; i--)
+    {
+        if(text.charAt(i) == ' ')
+        {
+            negspace = i;
+            break;
+        }
+    }
+    for(let i = position; i <= text.length; i++)
+    {
+        if(text.charAt(i) == ' ')
+        {
+            posspace = i;
+            break;
+        }
+    }
+    var closestspace = negspace
+    console.log(closestspace)
+    return text.slice(0, closestspace) + "<br>" + text.slice(closestspace);
+}
+
 function GenerateStat(isgood, weapontype)
 {
     var random = getRandomInt(10)
@@ -135,7 +186,18 @@ function GenerateStat(isgood, weapontype)
         {
             attr_to_add = good_things[getRandomInt(good_things.length)]
         }else {
-            attr_to_add = percent_attributes[getRandomInt(percent_attributes.length)]
+            if(weapontype == "lunchbox item")
+            {
+                var rand_2 = getRandomInt(3)
+                if(rand_2 == 0)
+                {
+                    attr_to_add = percent_attributes[getRandomInt(percent_attributes.length)]
+                }else{
+                    attr_to_add = lunchbox_percent_attributes[getRandomInt(lunchbox_percent_attributes.length)]
+                }
+            }else{
+                attr_to_add = percent_attributes[getRandomInt(percent_attributes.length)]
+            }
         }
     }
     else{
@@ -143,7 +205,18 @@ function GenerateStat(isgood, weapontype)
         {
             attr_to_add = bad_things[getRandomInt(bad_things.length)]
         }else{
-            attr_to_add = percent_attributes[getRandomInt(percent_attributes.length)]
+            if(weapontype == "lunchbox item")
+            {
+                var rand_2 = getRandomInt(3)
+                if(rand_2 == 0)
+                {
+                    attr_to_add = percent_attributes[getRandomInt(percent_attributes.length)]
+                }else{
+                    attr_to_add = lunchbox_percent_attributes[getRandomInt(lunchbox_percent_attributes.length)]
+                }
+            }else{
+                attr_to_add = percent_attributes[getRandomInt(percent_attributes.length)]
+            }
         }
     }
     if(random >= 9)
@@ -167,8 +240,14 @@ function GenerateStat(isgood, weapontype)
                 console.log("SHOULD HAVE ON KILL")
                 if(isgood)
                 {
-                    attr_to_add = "On Kill: " + GiveOnKill(getRandomInt(onKillAddon.length))
-                }else{
+                    if(weapontype == "lunchbox item")
+                    {
+                        attr_to_add = "When Eaten: " + GiveOnKill(getRandomInt(onKillAddon.length))
+                    }else{
+                        attr_to_add = "On Kill: " + GiveOnKill(getRandomInt(onKillAddon.length))
+                    }
+                }
+                else{
                     attr_to_add = "-10 max health";
                 }
             }
@@ -176,7 +255,12 @@ function GenerateStat(isgood, weapontype)
             console.log("SHOULD HAVE ON KILL")
             if(isgood)
             {
-                attr_to_add = "On Kill: " + GiveOnKill(getRandomInt(onKillAddon.length))
+                if(weapontype == "lunchbox item")
+                {
+                    attr_to_add = "When Eaten: " + GiveOnKill(getRandomInt(onKillAddon.length))
+                }else{
+                    attr_to_add = "On Kill: " + GiveOnKill(getRandomInt(onKillAddon.length))
+                }
             }else{
                 attr_to_add = "-10 max health";
             }
@@ -190,13 +274,14 @@ function GiveOnKill(val)
     killstat = onKillAddon[val]
    if(killstat != "Gibbs Player" && killstat != "Deals damage to anything connected by any kind of medi-beam")
    {
-        killstat += ((getRandomInt(3) + 1) * 5);
         if(killstat != "Creates Small Explosion that deals " && killstat != "Heals User by ")
         {
+            killstat += ((getRandomInt(3) + 1) * 5);
             killstat += " seconds"
         }
         else
-        {
+        {        
+            killstat += ((getRandomInt(3) + 1) * 5);
             killstat += " HP"
         }
    }
@@ -222,46 +307,56 @@ function randomWeapon()
         class_id = class_option - 1;
     }
     var class_weapontype = weapon_types[class_id]
-
+    
 
     var goods = []
 
     //Changes Name & level
     var class_name = classes[class_id]
     var weapontype = class_weapontype[getRandomInt(class_weapontype.length)]
+    if(isconstantweapon)
+    {
+        weapontype = constweapon
+    }
     document.getElementById("weapon-name").innerHTML = "A " + weapontype + " for the " + class_name
     document.getElementById("level").innerHTML = "level " + getRandomInt(37) + " " + weapontype
     document.getElementById("image").src = "weapons/" + weapontype + ".png"
     //Reset Positive An Negitive Attributes
     document.getElementById("negative").innerHTML = ""
     document.getElementById("positive").innerHTML = ""
+    document.getElementById("additional").innerHTML = ""
 
+    
     //Checks if The weapon Needs special States
     if(weapontype != "lunchbox item" ^ weapontype != "sheild" ^ weapontype != "medi-gun")
     {
         //Finds out ammount of Positive And Negative Stats
-        var positive_attr_count = (getRandomInt(5 + value)) 
+        var positive_attr_count = (getRandomInt(4 + value) + 1) 
         if(positive_attr_count <= 0)
         {
             positive_attr_count = 1;
         }
-        var neg_attr_count = (getRandomInt(5 - value)) 
-        if(neg_attr_count < 0)
+        var neg_attr_count = (getRandomInt(4 - value) + 1) 
+        if(neg_attr_count < 1)
         {
-            neg_attr_count = 0;
+            neg_attr_count = 1;
         }
-        if(positive_attr_count == 0 && neg_attr_count == 0)
+        if(positive_attr_count == 1 && neg_attr_count == 1)
         {
             //failsafe
             positive_attr_count = 3
             neg_attr_count = 1
         }
-
+        var modifier = 0;
+        if(weapontype == "banner")
+        {
+            modifier = 2;
+        }
         //Gets Attributes
         var attributes = [];
-        for(let i = 0; i < positive_attr_count + neg_attr_count; i++)
+        for(let i = 0; i < positive_attr_count + neg_attr_count + modifier; i++)
         {
-            var isgood = i < positive_attr_count;
+            var isgood = i < positive_attr_count + modifier;
             var attr_to_add = GenerateStat(isgood, weapontype)
             if(attributes.includes(attr_to_add))
             {
@@ -283,6 +378,11 @@ function randomWeapon()
         //most issues are born here
         for(let i = 0; goods[i] == true; i++)
         {
+            if(positive_attr_count - i == 2 && weapontype == "banner")
+            {
+                document.getElementById("positive").innerHTML += "When Used these attributes apply\n"
+                document.getElementById("additional").innerHTML += "Lasts for " + (getRandomInt(10) + 1) + " seconds"
+            }
             if(percent_attributes.includes(attributes[i]))
             {
                 //formatting
@@ -315,10 +415,12 @@ function randomWeapon()
 
             }
             //application
-            document.getElementById("positive").innerHTML += attributes[i] + "<br>"
+            document.getElementById("positive").innerHTML += CutTextAtSpace(42, attributes[i]) + "<br>"
         }
-        for(let i = positive_attr_count ; goods[i] == false; i++)
+        for(let index = 0; index < neg_attr_count + modifier; index++)
         {
+            i = index + positive_attr_count + modifier;
+            console.log()
             if(percent_attributes.includes(attributes[i]))
             {
                 if(attributes[i] == "Max Health")
@@ -333,12 +435,92 @@ function randomWeapon()
                 }
             }else if(bad_things.includes(attributes[i]))
             {
-                if(attributes[i] != "All Crits Become mini-crits" ^ attributes[i] == "increased falloff")
+                if(attributes[i] != "All Crits Become mini-crits" && attributes[i] != "increased falloff" && attributes[i] != "No Random Critical Hits")
                 {
                     attributes[i] = "+ %" + ((getRandomInt(15 - (value * 2)) + 1) * 5) + " " + attributes[i]
                 }
             }
-            document.getElementById("negative").innerHTML += attributes[i] + "<br>"
+            document.getElementById("negative").innerHTML += CutTextAtSpace(42, attributes[i]) + "<br>"
+        }
+        //debug stuff
+        console.log(positive_attr_count)
+        console.log(neg_attr_count)
+        console.log(attributes) //log after formatting
+        console.log(goods)
+        console.log(weapontype)
+        console.log(class_name)
+    }else if(weapontype == "lunchbox item") //LUNCHBOX ITEMS ----------------------------------------------------
+    {
+        var positive_attr_count = (getRandomInt(4 + value) + 1) 
+        if(positive_attr_count <= 0)
+        {
+            positive_attr_count = 1;
+        }
+        var neg_attr_count = (getRandomInt(2 - value) + 1) 
+        if(neg_attr_count < 1)
+        {
+            neg_attr_count = 1;
+        }
+        if(positive_attr_count == 1 && neg_attr_count == 1)
+        {
+            //failsafe
+            positive_attr_count = 3
+            neg_attr_count = 1
+        }
+        //Gets Attributes
+        var attributes = [];
+        for(let i = 0; i < positive_attr_count + neg_attr_count; i++)
+        {
+            var isgood = i < positive_attr_count;
+            var attr_to_add = GenerateStat(isgood, weapontype)
+            for(let i = 0; i < 900; i++)
+            {
+                if(attributes.includes(attr_to_add))
+                {
+                    attr_to_add = GenerateStat(isgood, weapontype)
+                }else{
+                    break
+                }
+            }
+            attributes.push(attr_to_add)
+            goods.push(isgood)
+        }
+        console.log(attributes) //log before formatting
+        //------------------------------------------------------------Application and formatting of Attributes
+        //most issues are born here
+        for(let i = 0; goods[i] == true; i++)
+        {
+            if(lunchbox_percent_attributes.includes(attributes[i]))
+            {
+                //formatting
+                attributes[i] = "+ %" + ((getRandomInt(12 + (value * 3)) + 1) * 5) + " " + attributes[i]
+            }
+            else if(onKillAddon.includes(attributes[i]))
+            {
+                attributes[i] = "On Eaten: " + attributes[i]
+            }else if(good_things.includes(attributes[i]))
+            {
+                attributes[i] += " on all weapons for " + ((getRandomInt(4 + (value))+ 1) * 2) + " seconds after eating"
+            }else if(percent_attributes.includes(attributes[i])){
+                attributes[i] = "On Eaten: " + attributes[i] + (getRandomInt(7 + (value)) + 1) + " seconds after eating"
+            }
+            //application
+            document.getElementById("positive").innerHTML += CutTextAtSpace(42, attributes[i]) + "<br>"
+        }
+        for(let index = 0; index < neg_attr_count; index++)
+        {
+            i = index + positive_attr_count;
+            if(lunchbox_percent_attributes.includes(attributes[i]))
+            {
+                //formatting
+                attributes[i] = "- %" + ((getRandomInt(12 + (value * 3)) + 1) * 5) + " " + attributes[i]
+            }
+            else if(onKillAddon.includes(attributes[i]))
+            {
+                attributes[i] = "On Eaten: " + attributes[i]
+            }
+            //application
+            document.getElementById("negative").innerHTML += CutTextAtSpace(42, attributes[i]) + "<br>"
         }
         //debug stuff
         console.log(positive_attr_count)
@@ -354,3 +536,4 @@ function randomWeapon()
     //Thoughts of Rubyboat:
     //1:08 AM 11/23/21 - Wow I just got daja vu lol and also I should probably sleep
     //5:00 PM 11/24/2021 - This is much harder than I thought it would be
+    //4:00 PM 12/2/2021 - Wow this is so much easier than I thought it would be to add lunchbox items
