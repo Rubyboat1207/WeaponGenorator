@@ -502,7 +502,7 @@ function randomWeapon()
             {
                 attributes[i] += " on all weapons for " + ((getRandomInt(4 + (value))+ 1) * 2) + " seconds after eating"
             }else if(percent_attributes.includes(attributes[i])){
-                attributes[i] = "On Eaten: " + attributes[i] + " for" + (getRandomInt(7 + (value)) + 1) + " seconds after eating"
+                attributes[i] = "On Eaten: " + attributes[i] + " for " + (getRandomInt(7 + (value)) + 1) + " seconds after eating"
             }
             //application
             document.getElementById("positive").innerHTML += CutTextAtSpace(42, attributes[i]) + "<br>"
