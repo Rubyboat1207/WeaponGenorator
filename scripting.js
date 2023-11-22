@@ -1,18 +1,87 @@
 //if anybody reads this, I am so terribly sorry for this code
 
+class Attribute {
+    constructor(name, slots, weapons_to_ignore, min, max, format_provider) {
+        this.name = name;
+        this.slots = slots;
+        this.weapons_to_ignore = weapons_to_ignore;
+        this.min = min;
+        this.max = max;
+        this.format_provider = format_provider;
+    }
+}
+
+class Weapon {
+    constructor(slot, name, special_attrs) {
+        this.slot = slot;
+        this.name = name;
+        this.special_attrs = special_attrs;
+    }
+}
+
+
 const classes = ["scout", "soldier", "pyro", "demoman", "heavy", "engineer", "medic", "sniper", "spy"]
 
-const scout = ["scattergun", "pistol", "bat"]
-const soldier = ["rocket launcher", "shotgun", "banner", "pair of boots", "shovel"]
-const pyro = ["flamethrower", "shotgun", "flare gun", "fire axe"]
-const demoman = ["grenade launcher", "sticky bomb launcher", "sword", "bottle"]
-const heavy = ["minigun", "shotgun", "lunchbox item", "mele"]
-const engineer = ["shotgun", "pistol", "wrench"]
-const medic = ["needle gun", "crossbow", "mele"]
-const sniper = ["sniper rifle", "smg", "mele"]
-const spy = ["revolver", "knife"]
+const scout = [
+    new Weapon('primary', "scattergun", []),
+    new Weapon('secondary', "pistol", []),
+    new Weapon('melee', "bat", [])
+];
 
-const percent_attributes = 
+const soldier = [
+    new Weapon('primary', "rocket launcher", []),
+    new Weapon('secondary', "shotgun", []),
+    new Weapon('secondary', "banner", []),
+    new Weapon('secondary', "pair of boots", []),
+    new Weapon('melee', "shovel", [])
+];
+
+const pyro = [
+    new Weapon('primary', "flamethrower", []),
+    new Weapon('secondary', "shotgun", []),
+    new Weapon('secondary', "flare gun", []),
+    new Weapon('melee', "fire axe", [])
+];
+
+const demoman = [
+    new Weapon('primary', "grenade launcher", []),
+    new Weapon('secondary', "sticky bomb launcher", []),
+    new Weapon('melee', "sword", []),
+    new Weapon('melee', "bottle", [])
+];
+
+const heavy = [
+    new Weapon('primary', "minigun", []),
+    new Weapon('secondary', "shotgun", []),
+    new Weapon('secondary', "lunchbox item", []),
+    new Weapon('melee', "melee", [])
+];
+
+const engineer = [
+    new Weapon('primary', "shotgun", []),
+    new Weapon('secondary', "pistol", []),
+    new Weapon('melee', "wrench", [])
+];
+
+const medic = [
+    new Weapon('primary', "needle gun", []),
+    new Weapon('secondary', "crossbow", []),
+    new Weapon('melee', "melee", [])
+];
+
+const sniper = [
+    new Weapon('primary', "sniper rifle", []),
+    new Weapon('secondary', "smg", []),
+    new Weapon('melee', "melee", [])
+];
+
+const spy = [
+    new Weapon('primary', "revolver", []),
+    new Weapon('melee', "knife", [])
+];
+
+
+const percent_attributes =
 [
     "Movement Speed",
     "Max Health",
@@ -44,14 +113,14 @@ const good_things = [
     "Fires Projectile on Right Click Costing Entire Clip"
 ]
 const onKillAddon = [
-    "Creates Small Explosion that deals ",
+    // "Creates Small Explosion that deals ",
     "Turns User Invisible for ",
-    "Coats All Enimies within a 10m radius with jarate for ",
-    "Coats All Enimies within a 10m radius with mad milk for ",
+    // "Coats All Enimies within a 10m radius with jarate for ",
+    // "Coats All Enimies within a 10m radius with mad milk for ",
     "Gives Nearest Teammate crits for ",
     "Gives Crits on any weapon for ",
     "Gives Crits on this weapon for ",
-    "Gets 3 additional double jumps for ",
+    // "Gets 3 additional double jumps for ",
     "Becomes Mini Crit Boosted for ",
     "Deals damage to anything connected by any kind of medi-beam",
     "Heals User by ",
@@ -62,7 +131,7 @@ const bad_things = [
     "Blast Damage Vurnuability",
     "Crit Damage Vurnuability",
     "Mini-crit Damage Vurnuability",
-    "increased falloff",
+    // "increased falloff",
     "All Crits Become mini-crits",
     "No Random Critical Hits",
     "No Random Critical Hits",
@@ -280,7 +349,7 @@ function GiveOnKill(val)
             killstat += " seconds"
         }
         else
-        {        
+        {
             killstat += ((getRandomInt(3) + 1) * 5);
             killstat += " HP"
         }
@@ -307,7 +376,7 @@ function randomWeapon()
         class_id = class_option - 1;
     }
     var class_weapontype = weapon_types[class_id]
-    
+
 
     var goods = []
 
@@ -326,17 +395,17 @@ function randomWeapon()
     document.getElementById("positive").innerHTML = ""
     document.getElementById("additional").innerHTML = ""
 
-    
+
     //Checks if The weapon Needs special States
     if(weapontype != "lunchbox item" ^ weapontype != "sheild" ^ weapontype != "medi-gun")
     {
         //Finds out ammount of Positive And Negative Stats
-        var positive_attr_count = (getRandomInt(4 + value) + 1) 
+        var positive_attr_count = (getRandomInt(4 + value) + 1)
         if(positive_attr_count <= 0)
         {
             positive_attr_count = 1;
         }
-        var neg_attr_count = (getRandomInt(4 - value) + 1) 
+        var neg_attr_count = (getRandomInt(4 - value) + 1)
         if(neg_attr_count < 1)
         {
             neg_attr_count = 1;
@@ -403,7 +472,7 @@ function randomWeapon()
                 {
                     attributes[i] = "+ %" + ((getRandomInt(15 + (value * 2)) + 1) * 5) + " " + attributes[i]
                 }
-            }else if(flame_thrower_addons.includes(attributes[i]) ^ projectile_addons.includes(attributes[i]) ^ sniper_rifle_addons.includes(attributes[i])) 
+            }else if(flame_thrower_addons.includes(attributes[i]) ^ projectile_addons.includes(attributes[i]) ^ sniper_rifle_addons.includes(attributes[i]))
             {
                 if(attributes[i] == "On Headshot")
                 {
@@ -451,12 +520,12 @@ function randomWeapon()
         console.log(class_name)
     }else if(weapontype == "lunchbox item") //LUNCHBOX ITEMS ----------------------------------------------------
     {
-        var positive_attr_count = (getRandomInt(4 + value) + 1) 
+        var positive_attr_count = (getRandomInt(4 + value) + 1)
         if(positive_attr_count <= 0)
         {
             positive_attr_count = 1;
         }
-        var neg_attr_count = (getRandomInt(2 - value) + 1) 
+        var neg_attr_count = (getRandomInt(2 - value) + 1)
         if(neg_attr_count < 1)
         {
             neg_attr_count = 1;
